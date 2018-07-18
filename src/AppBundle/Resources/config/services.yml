@@ -1,0 +1,16 @@
+services:
+  mail.repo:
+    class: AppBundle\Repository\MailRepository
+    factory: 'doctrine.orm.default_entity_manager:getRepository'
+    arguments: ['AppBundle\Entity\Mail']
+    public: true
+  mail.service:
+    class: AppBundle\Service\MailService
+    arguments: ['@doctrine.orm.entity_manager', '@old_sound_rabbit_mq.send_mails_producer', '@app_swift_mailer']
+    public: true
+  send_mails_consumer:
+    class: AppBundle\Consumer\SendMailsConsumer
+    arguments: ['@mail.service']
+  app_swift_mailer:
+    class: AppBundle\Service\SwiftMailer
+    arguments: ['@swiftmailer.mailer']
