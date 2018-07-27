@@ -4,7 +4,7 @@ namespace AppBundle\Service;
 
 use AppBundle\Entity\Mail;
 use AppBundle\Exception\SendException;
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use OldSound\RabbitMqBundle\RabbitMq\ProducerInterface;
 
 class MailService
@@ -15,8 +15,11 @@ class MailService
 
     protected $mailer;
 
-    public function __construct(EntityManager $entityManager, ProducerInterface $producer, MailerInterface $mailer)
-    {
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        ProducerInterface $producer,
+        MailerInterface $mailer
+    ) {
         $this->entityManager = $entityManager;
         $this->producer = $producer;
         $this->mailer = $mailer;

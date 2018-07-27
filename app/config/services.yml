@@ -33,3 +33,10 @@ services:
     # AppBundle\Service\ExampleService:
     #     arguments:
     #         $someArgument: 'some_value'
+    AppBundle\Service\MailService:
+        arguments:
+          $entityManager: '@doctrine.orm.entity_manager'
+          $producer: '@old_sound_rabbit_mq.send_mails_producer'
+          $mailer: '@AppBundle\Service\SwiftMailer'
+    send_mails_consumer:
+      class: AppBundle\Consumer\SendMailsConsumer
