@@ -12,6 +12,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Recipient
 {
     /**
+     * @var string
+     *
      * @ORM\Id
      * @ORM\Column(type="string")
      * @ORM\GeneratedValue(strategy="UUID")
@@ -19,6 +21,8 @@ class Recipient
     protected $id;
 
     /**
+     * @var string
+     *
      * @Assert\Email()
      * @Assert\NotBlank()
      * @ORM\Column(type="string")
@@ -30,13 +34,13 @@ class Recipient
      */
     protected $mail;
 
-    public function __construct(Mail $mail, $address)
+    public function __construct(Mail $mail, string $address)
     {
         $this->address = $address;
         $this->mail = $mail;
     }
 
-    public function getAddress()
+    public function getAddress(): string
     {
         return $this->address;
     }

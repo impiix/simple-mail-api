@@ -8,6 +8,9 @@ use PhpAmqpLib\Message\AMQPMessage;
 
 class SendMailsConsumer implements ConsumerInterface
 {
+    /**
+     * @var MailService
+     */
     protected $mailService;
 
     public function __construct(MailService $mailService)
@@ -15,7 +18,7 @@ class SendMailsConsumer implements ConsumerInterface
         $this->mailService = $mailService;
     }
 
-    public function execute(AMQPMessage $msg)
+    public function execute(AMQPMessage $msg): void
     {
         $data = json_decode($msg->body, true);
         $this->mailService->sendById($data['id']);

@@ -9,10 +9,19 @@ use OldSound\RabbitMqBundle\RabbitMq\ProducerInterface;
 
 class MailService
 {
+    /**
+     * @var EntityManagerInterface
+     */
     protected $entityManager;
 
+    /**
+     * @var ProducerInterface
+     */
     protected $producer;
 
+    /**
+     * @var MailerInterface
+     */
     protected $mailer;
 
     public function __construct(
@@ -25,13 +34,13 @@ class MailService
         $this->mailer = $mailer;
     }
 
-    public function createMail(Mail $mail)
+    public function createMail(Mail $mail): void
     {
         $this->entityManager->persist($mail);
         $this->entityManager->flush();
     }
 
-    public function sendEmails()
+    public function sendEmails(): void
     {
         $toSend = $this->entityManager
             ->getRepository(Mail::class)
@@ -41,7 +50,7 @@ class MailService
         }
     }
 
-    public function sendById($mailId)
+    public function sendById($mailId): void
     {
         $mail = $this->entityManager->getRepository(Mail::class)->find($mailId);
 

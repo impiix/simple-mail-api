@@ -4,6 +4,9 @@ namespace AppBundle\Service;
 
 class SwiftMailer implements MailerInterface
 {
+    /**
+     * @var \Swift_Mailer
+     */
     protected $swift;
 
     public function __construct(\Swift_Mailer $swift)
